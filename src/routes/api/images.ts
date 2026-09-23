@@ -10,12 +10,11 @@ images.get("/", async (req: Request, res: Response): Promise<void> => {
   const widthStr = req.query.width as string;
   const heightStr = req.query.height as string;
 
-  // 1. Validação de parâmetros ausentes
   if (!filename || !widthStr || !heightStr) {
     res
       .status(400)
       .send(
-        "Parâmetros ausentes. Por favor, informe filename, width e height.",
+        "Missing parameters. Please provide filename, width, and height.",
       );
     return;
   }
@@ -23,11 +22,10 @@ images.get("/", async (req: Request, res: Response): Promise<void> => {
   const width = parseInt(widthStr, 10);
   const height = parseInt(heightStr, 10);
 
-  // 2. Validação de valores numéricos para largura e altura
   if (isNaN(width) || isNaN(height) || width <= 0 || height <= 0) {
     res
       .status(400)
-      .send("Largura e altura devem ser números inteiros maiores que zero.");
+      .send("Width and height must be integers greater than zero.");
     return;
   }
 
@@ -36,20 +34,17 @@ images.get("/", async (req: Request, res: Response): Promise<void> => {
     `./assets/thumbs/${filename}-${width}x${height}.jpg`,
   );
 
-  // 3. Validação de existência da imagem original
   if (!fs.existsSync(fullImagePath)) {
-    res.status(404).send("A imagem solicitada não foi encontrada no servidor.");
+    res.status(404).send("The requested image was not found on the server.");
     return;
   }
 
   try {
-    // 4. Mecanismo de Cache em Disco: se já existir na pasta thumbs, serve diretamente
     if (fs.existsSync(thumbImagePath)) {
       res.sendFile(thumbImagePath);
       return;
     }
 
-    // 5. Caso contrário, processa a imagem, salva em thumbs e envia
     await resizeImage({
       sourcePath: fullImagePath,
       targetPath: thumbImagePath,
@@ -61,7 +56,7 @@ images.get("/", async (req: Request, res: Response): Promise<void> => {
   } catch (error) {
     res
       .status(500)
-      .send(`Erro interno ao processar a imagem: ${(error as Error).message}`);
+      .send(`Internal error processing the image: ${(error as Error).message}`);
   }
 });
 

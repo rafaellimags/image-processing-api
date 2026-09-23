@@ -4,7 +4,7 @@ import images from "./api/images.js";
 const routes = Router();
 
 routes.get("/", (req: Request, res: Response): void => {
-  res.send("API de Processamento de Imagens funcionando!");
+  res.send("Image Processing API is working!");
 });
 
 routes.use("/images", images);
