@@ -25,7 +25,7 @@ export const resizeImage = async ({
       .toFile(targetPath);
   } catch (error) {
     throw new Error(
-      `Erro ao processar e salvar a imagem: ${(error as Error).message}`,
+      `Erro ao processar e salvar a imagem: ${(error as Error).message}`, { cause: error }
     );
   }
 };
