@@ -7,12 +7,6 @@ export interface ImageResizeParams {
   height: number;
 }
 
-/**
- * Redimensiona uma imagem a partir do caminho de origem e salva no caminho de destino.
- *
- * @param params Objeto contendo os caminhos de origem/destino e as dimensões desejadas.
- * @returns Promise<void> que resolve quando o processamento e salvamento são concluídos.
- */
 export const resizeImage = async ({
   sourcePath,
   targetPath,
