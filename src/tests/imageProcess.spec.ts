@@ -1,9 +1,9 @@
-import path from 'path';
-import fs from 'fs';
-import { resizeImage } from '../utils/imageProcess.js';
+import path from "path";
+import fs from "fs";
+import { resizeImage } from "../utils/imageProcess.js";
 
-describe('Suíte de Testes Unitários: Processamento de Imagem', (): void => {
-  const filename = 'fjord'; // Certifique-se de ter assets/full/fjord.jpg no projeto
+describe("Suíte de Testes Unitários: Processamento de Imagem", (): void => {
+  const filename = "fjord"; // Certifique-se de ter assets/full/fjord.jpg no projeto
   const width = 200;
   const height = 200;
 
@@ -19,7 +19,7 @@ describe('Suíte de Testes Unitários: Processamento de Imagem', (): void => {
     }
   });
 
-  it('deve redimensionar e salvar a imagem com sucesso quando dados válidos forem fornecidos', async (): Promise<void> => {
+  it("deve redimensionar e salvar a imagem com sucesso quando dados válidos forem fornecidos", async (): Promise<void> => {
     await resizeImage({
       sourcePath,
       targetPath,
@@ -30,8 +30,8 @@ describe('Suíte de Testes Unitários: Processamento de Imagem', (): void => {
     expect(fs.existsSync(targetPath)).toBeTrue();
   });
 
-  it('deve lançar um erro quando o caminho da imagem de origem não existir', async (): Promise<void> => {
-    const invalidSourcePath = path.resolve('./assets/full/non_existent.jpg');
+  it("deve lançar um erro quando o caminho da imagem de origem não existir", async (): Promise<void> => {
+    const invalidSourcePath = path.resolve("./assets/full/non_existent.jpg");
 
     await expectAsync(
       resizeImage({
